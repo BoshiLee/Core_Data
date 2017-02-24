@@ -13,7 +13,7 @@ class GroceryTableViewController: UITableViewController {
     // 存放資料的型態必須要是 [NSManagedObject]
     var groceries = [NSManagedObject]()
     var managerObjectContext: NSManagedObjectContext?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +23,7 @@ class GroceryTableViewController: UITableViewController {
         managerObjectContext = appDelegate.persistentContainer.viewContext
         loadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,7 +33,7 @@ class GroceryTableViewController: UITableViewController {
         // 實例化請求該 entity
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Grocery")
         do {
-            // fetch 請求存入 result
+            // 實例化請求 Database
             let results = try managerObjectContext?.fetch(request)
             // 將 result 存入 NSManagedobject 陣列裡
             groceries = results!
@@ -43,7 +43,7 @@ class GroceryTableViewController: UITableViewController {
             fatalError("Error in retriving Grocery item")
         }
     }
-
+    
     @IBAction func addAction(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Grocery Item", message: "What's to buy now?", preferredStyle: UIAlertControllerStyle.alert)
         
@@ -78,17 +78,17 @@ class GroceryTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.groceries.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "groceryCell", for: indexPath)
